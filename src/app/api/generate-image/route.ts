@@ -25,11 +25,12 @@ export async function POST(req: Request) {
 
     // If OpenAI error, try to extract the message
     if (error instanceof Error) {
-      if (typeof (error as any).responseBody === "string") {
+      const errorWithResponse = error as { responseBody?: string };
+      if (typeof errorWithResponse.responseBody === "string") {
         try {
-          const body = JSON.parse((error as any).responseBody);
+          const body = JSON.parse(errorWithResponse.responseBody);
           message = body.error?.message || message;
-        } catch (_) {
+        } catch {
           // fallback to default message
         }
       } else {

@@ -4,7 +4,15 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { MoveRight, Cpu, MessageSquare, Zap, ImageIcon, Mic, LayoutGrid, Database, Wrench, FileAudio, Layers, AlertCircle, X } from "lucide-react";
 
-const FeatureCard = ({ title, description, icon: Icon, href, color }: any) => (
+interface FeatureCardProps {
+  title: string;
+  description: string;
+  icon: React.ElementType;
+  href: string;
+  color: string;
+}
+
+const FeatureCard = ({ title, description, icon: Icon, href, color }: FeatureCardProps) => (
   <Link href={href}>
     <div className="group relative p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-all duration-300 overflow-hidden cursor-pointer h-full backdrop-blur-sm">
       <div className={`absolute inset-0 bg-gradient-to-br ${color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />

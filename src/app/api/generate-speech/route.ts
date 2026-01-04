@@ -13,18 +13,7 @@ export async function POST(req: Request) {
     // ✅ Convert to a standard Uint8Array with a valid ArrayBuffer
     const fixedAudio = Uint8Array.from(audio.uint8Array);
 
-    // ✅ Option 1: Use a Blob
-    const blob = new Blob([fixedAudio], {
-      type: audio.mediaType || "audio/mpeg",
-    });
-
-    // return new Response(blob, {
-    //   headers: {
-    //     "Content-Type": audio.mediaType || "audio/mpeg",
-    //   },
-    // });
-
-    // ✅ Option 2 (alternative): Send directly
+    // ✅ Send directly
     return new Response(fixedAudio, {
       headers: {
         "Content-Type": audio.mediaType || "audio/mpeg",
