@@ -14,7 +14,7 @@ import { useState } from "react";
 //   type: "text";
 //   text: string;
 // };
-export default function page() {
+export default function ChatPage() {
   const [input, setInput] = useState("");
 
   const { messages, sendMessage, status, error, stop } = useChat();
