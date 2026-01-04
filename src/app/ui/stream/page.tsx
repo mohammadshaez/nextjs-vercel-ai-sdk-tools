@@ -1,7 +1,6 @@
 "use client";
 
 import { useCompletion } from "@ai-sdk/react";
-import { useState } from "react";
 
 export default function StreamPage() {
   const {

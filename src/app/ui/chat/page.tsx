@@ -1,7 +1,6 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
-import { TextUIPart } from "ai";
 import { useState } from "react";
 
 // default types
