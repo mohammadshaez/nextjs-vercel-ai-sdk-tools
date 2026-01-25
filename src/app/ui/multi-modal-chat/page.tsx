@@ -27,7 +27,7 @@ export default function MultiModalChatPage() {
   };
 
   return (
-    <div className="flex flex-col w-full max-w-md pt-12 pb-36 mx-auto stretch">
+    <div className="flex flex-col w-full max-w-2xl px-4 py-12 pb-48 mx-auto stretch">
       {error && <div className="text-red-500 mb-4">{error.message}</div>}
 
       {messages.map((message) => (
@@ -87,9 +87,9 @@ export default function MultiModalChatPage() {
 
       <form
         onSubmit={handleSubmit}
-        className="fixed bottom-0 w-full max-w-md mx-auto left-0 right-0 p-4 bg-zinc-50 dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800 shadow-lg"
+        className="fixed bottom-0 left-0 right-0 lg:left-64 p-4 bg-zinc-900 border-t border-zinc-800 shadow-2xl transition-all duration-300"
       >
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 max-w-2xl mx-auto">
           <div className="flex items-center gap-2">
             <label
               htmlFor="file-upload"
