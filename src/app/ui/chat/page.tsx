@@ -76,12 +76,17 @@ export default function ChatPage() {
           <div className="p-2 bg-sky-500/10 rounded-xl border border-sky-500/20">
             <Sparkles className="w-6 h-6 text-sky-400" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight nexus-futuristic-text">
-            Nexus AI
-          </h1>
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight nexus-futuristic-text">
+              Nexus AI
+            </h1>
+            <p className="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">
+              Neural Gateway Pulse
+            </p>
+          </div>
         </div>
-        <div className="px-3 py-1 rounded-full text-xs font-medium border border-sky-500/20 bg-sky-500/5 text-sky-400 animate-pulse">
-          {status === "ready" ? "Online" : "Processing..."}
+        <div className="px-3 py-1 rounded-full text-xs font-medium border border-sky-500/20 bg-sky-500/5 text-sky-400">
+          {status === "ready" ? "Link Online" : "Executing Function"}
         </div>
       </header>
 
