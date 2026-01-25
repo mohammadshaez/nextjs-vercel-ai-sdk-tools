@@ -28,7 +28,7 @@ export default function MultiModalChatPage() {
 
   return (
     <div className="flex flex-col w-full max-w-2xl px-4 py-12 pb-48 mx-auto stretch">
-      {error && <div className="text-red-500 mb-4">{error.message}</div>}
+      {error && <div className="text-red-500 mb-4">{error?.message}</div>}
 
       {messages.map((message) => (
         <div key={message.id} className="mb-4">

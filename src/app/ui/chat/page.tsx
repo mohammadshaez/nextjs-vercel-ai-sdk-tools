@@ -140,9 +140,9 @@ export default function ChatPage() {
 
               {message.role === "user" && (
                 <div className="text-sm md:text-base text-slate-100 whitespace-pre-wrap">
-                  {(message as any).content ||
-                    (message as any).parts?.[0]?.text ||
-                    ""}
+                  {message.parts.map((part, i) =>
+                    part.type === "text" ? part.text : "",
+                  )}
                 </div>
               )}
             </div>
@@ -172,7 +172,7 @@ export default function ChatPage() {
         {error && (
           <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 text-sm flex items-center gap-2">
             <div className="w-2 h-2 bg-red-500 rounded-full animate-ping" />
-            System Override Error: {error.message}
+            System Override Error: {error?.message}
           </div>
         )}
       </div>

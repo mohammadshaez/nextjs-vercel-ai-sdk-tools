@@ -1,7 +1,15 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Mic, Square, Loader2, Play, Trash2, RefreshCcw, Sparkles } from "lucide-react";
+import {
+  Mic,
+  Square,
+  Loader2,
+  Play,
+  Trash2,
+  RefreshCcw,
+  Sparkles,
+} from "lucide-react";
 
 interface TranscriptResult {
   text: string;
@@ -18,7 +26,7 @@ export default function TranscribeAudioPage() {
   const [isRecording, setIsRecording] = useState(false);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [recordingSeconds, setRecordingSeconds] = useState(0);
-  
+
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -59,12 +67,14 @@ export default function TranscribeAudioPage() {
 
       mediaRecorder.onstop = () => {
         const audioBlob = new Blob(chunksRef.current, { type: "audio/webm" });
-        const file = new File([audioBlob], "recording.webm", { type: "audio/webm" });
+        const file = new File([audioBlob], "recording.webm", {
+          type: "audio/webm",
+        });
         setSelectedFile(file);
         setAudioUrl(URL.createObjectURL(audioBlob));
-        
+
         // Stop all tracks to release microphone
-        stream.getTracks().forEach(track => track.stop());
+        stream.getTracks().forEach((track) => track.stop());
       };
 
       setRecordingSeconds(0);
@@ -79,7 +89,10 @@ export default function TranscribeAudioPage() {
   };
 
   const stopRecording = () => {
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
+    if (
+      mediaRecorderRef.current &&
+      mediaRecorderRef.current.state === "recording"
+    ) {
       mediaRecorderRef.current.stop();
       setIsRecording(false);
     }
@@ -116,7 +129,7 @@ export default function TranscribeAudioPage() {
       setError(
         error instanceof Error
           ? error.message
-          : "Something went wrong. Please try again."
+          : "Something went wrong. Please try again.",
       );
     } finally {
       setIsLoading(false);
@@ -208,7 +221,11 @@ export default function TranscribeAudioPage() {
               <div className="flex items-center gap-2">
                 <div className="flex gap-1">
                   {[...Array(3)].map((_, i) => (
-                    <div key={i} className="w-1.5 h-1.5 bg-red-500 rounded-full animate-bounce" style={{ animationDelay: `${i * 0.15}s` }} />
+                    <div
+                      key={i}
+                      className="w-1.5 h-1.5 bg-red-500 rounded-full animate-bounce"
+                      style={{ animationDelay: `${i * 0.15}s` }}
+                    />
                   ))}
                 </div>
                 <span className="text-sm font-semibold tracking-wide uppercase text-red-500">
@@ -216,9 +233,11 @@ export default function TranscribeAudioPage() {
                 </span>
               </div>
               <div className="w-48 h-1.5 bg-red-500/20 rounded-full overflow-hidden">
-                <div 
+                <div
                   className="h-full bg-red-500 transition-all duration-1000 ease-linear"
-                  style={{ width: `${(recordingSeconds / MAX_RECORDING_SECONDS) * 100}%` }}
+                  style={{
+                    width: `${(recordingSeconds / MAX_RECORDING_SECONDS) * 100}%`,
+                  }}
                 />
               </div>
             </div>
@@ -226,53 +245,58 @@ export default function TranscribeAudioPage() {
         ) : (
           <div className="w-full flex flex-col items-center gap-6">
             <div className="w-full max-w-sm flex items-center gap-4 p-4 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800">
-               <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-full">
-                  <Play className="w-5 h-5 text-blue-500 fill-current" />
-               </div>
-               <div className="flex-1">
-                  <div className="text-sm font-semibold">Recording Ready</div>
-                  <div className="text-xs text-slate-500">{recordingSeconds.toFixed(1)}s recorded</div>
-               </div>
-               <div className="flex gap-1">
-                  <button 
-                    onClick={handleRecordNew}
-                    title="Record New"
-                    className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full text-slate-400 hover:text-blue-500 transition-colors"
-                  >
-                    <RefreshCcw className="w-5 h-5" />
-                  </button>
-                  <button 
-                    onClick={resetAudio}
-                    title="Delete"
-                    className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full text-slate-400 hover:text-red-500 transition-colors"
-                  >
-                    <Trash2 className="w-5 h-5" />
-                  </button>
-               </div>
+              <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-full">
+                <Play className="w-5 h-5 text-blue-500 fill-current" />
+              </div>
+              <div className="flex-1">
+                <div className="text-sm font-semibold">Recording Ready</div>
+                <div className="text-xs text-slate-500">
+                  {recordingSeconds.toFixed(1)}s recorded
+                </div>
+                {audioUrl && (
+                  <audio src={audioUrl} controls className="mt-2 h-8 w-full" />
+                )}
+              </div>
+              <div className="flex gap-1">
+                <button
+                  onClick={handleRecordNew}
+                  title="Record New"
+                  className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full text-slate-400 hover:text-blue-500 transition-colors"
+                >
+                  <RefreshCcw className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={resetAudio}
+                  title="Delete"
+                  className="p-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full text-slate-400 hover:text-red-500 transition-colors"
+                >
+                  <Trash2 className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
             <form onSubmit={handleSubmit} className="w-full max-w-sm">
-                <button
+              <button
                 type="submit"
                 disabled={isLoading}
                 className="w-full h-14 bg-blue-500 hover:bg-blue-600 text-white rounded-2xl font-bold tracking-wide uppercase shadow-lg shadow-blue-500/20 disabled:opacity-50 transition-all flex items-center justify-center gap-2"
-                >
+              >
                 {isLoading ? (
-                    <>
+                  <>
                     <Loader2 className="w-5 h-5 animate-spin" />
                     Transcribing...
-                    </>
+                  </>
                 ) : (
-                    "Init Transcription"
+                  "Init Transcription"
                 )}
-                </button>
+              </button>
             </form>
           </div>
         )}
       </div>
-      
+
       <div className="mt-8 text-center text-[10px] uppercase tracking-[0.2em] text-slate-500">
-          Nexus Audio Module v1.0.4 • Stream encrypted
+        Nexus Audio Module v1.0.4 • Stream encrypted
       </div>
     </div>
   );

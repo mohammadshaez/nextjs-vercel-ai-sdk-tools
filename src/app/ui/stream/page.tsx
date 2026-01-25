@@ -18,7 +18,7 @@ export default function StreamPage() {
   console.log(error, "errors");
   return (
     <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-      {error && <div className="text-red-500 mb-4">{error.message}</div>}
+      {error && <div className="text-red-500 mb-4">{error?.message}</div>}
       {isLoading && !completion && <div>Loading...</div>}
 
       {completion && <div className="whitespace-pre-wrap">{completion}</div>}
@@ -28,9 +28,9 @@ export default function StreamPage() {
           setInput(""); // temporary fix to clear the input after submission
           handleSubmit(e);
         }}
-        className="fixed bottom-0 w-full max-w-md mx-auto left-0 right-0 p-4 bg-zinc-50 dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800 shadow-lg"
+        className="fixed bottom-0 left-0 right-0 lg:left-64 p-4 bg-zinc-900 border-t border-zinc-800 shadow-2xl transition-all duration-300"
       >
-        <div className="flex gap-2">
+        <div className="flex gap-2 max-w-2xl mx-auto">
           <input
             className="flex-1 dark:bg-zinc-800 p-2 border border-zinc-300 dark:border-zinc-700 rounded shadow-xl"
             value={input}
